@@ -3,21 +3,33 @@ import {useNavigate} from "react-router-dom";
 import './Login.css'
 import { Button, Form, Input } from 'antd';
 import {$adminLogin} from "../../api/adminApi";
+import MyNotification from "../../components/notification/MyNOtification";
 
 export default function Login(){
     // 表单
     let [contentForm] = Form.useForm()
     // 导航
     let navigate = useNavigate();
+    // 通知框
+    let [notiMsg, setNotiMsg] = useState({
+        type: '',
+        description: ''
+    })
 
     const onFinish = async (values) => {
         try {
             const result = await $adminLogin(values);
             if(result.message === '成功') {
-
-                navigate('/main-layout', {state: {result}})
+                setNotiMsg({
+                    type: 'success',
+                    description: result.message
+                })
+                navigate('/mainLayout', {state: {result}})
             } else {
-
+                setNotiMsg({
+                    type: 'error',
+                    description: result.message
+                })
             }
         } catch (error) {
             console.error('Login error', error);
@@ -93,6 +105,7 @@ export default function Login(){
                     </Form.Item>
                 </Form>
             </div>
+            <MyNotification notiMsg={notiMsg}/>
         </div>
     )
 }
