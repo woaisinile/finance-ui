@@ -7,7 +7,7 @@ import {
     UserOutlined,
     VideoCameraOutlined,
     MailOutlined,
-    SettingOutlined, WindowsFilled
+    SettingOutlined, WindowsFilled, WindowsOutlined, AccountBookOutlined, KeyOutlined, AlipayOutlined
 } from '@ant-design/icons';
 import { Layout, Menu, Button, theme } from 'antd';
 import './MainLayout.css'
@@ -22,54 +22,9 @@ const {
 // 顶部导航栏
 const items = [
     {
-        label: '首页',
-        key: 'mail',
-        icon: <MailOutlined />,
-    },
-    {
-        label: '房子',
-        key: 'app',
-        icon: <WindowsFilled />,
-    },
-    {
-        label: '通讯录',
-        key: 'SubMenu',
-        icon: <SettingOutlined />,
-        children: [
-            {
-                type: 'group',
-                label: '老王',
-                children: [
-                    {
-                        label: '大王',
-                        key: 'bowing',
-                    },
-                    {
-                        label: '小王',
-                        key: 'setting:2',
-                    },
-                ],
-            },
-            {
-                type: 'group',
-                label: '老李',
-                children: [
-                    {
-                        label: '大李',
-                        key: 'setting:3',
-                    },
-                    {
-                        label: '小李',
-                        key: 'setting:4',
-                    },
-                ],
-            },
-        ],
-    },
-    {
         label: (
             <a href="https://www.baidu.com" target="_blank" rel="noopener noreferrer">
-                去antd官网
+                去百度
             </a>
         ),
         key: 'alipay',
@@ -82,29 +37,85 @@ const items = [
 ];
 const leftItems = [
     {
-        key: 'marketActivity',
-        icon: <UserOutlined />,
-        label: '市场活动',
+        key: 'systemHome',
+        icon: <WindowsOutlined />,
+        label: '系统首页',
     },
     {
-        key: '2',
-        icon: <VideoCameraOutlined />,
-        label: '视屏录像',
+        key: 'userInfoManage',
+        icon: <UserOutlined />,
+        label: '用户信息管理',
         children: [
             {
-                key: '2-1',
-                label: '视屏'
+                key: 'userInfo',
+                label: '用户信息'
             },
             {
-                key: '2-2',
-                label: '录像'
+                key: 'bankCard',
+                label: '银行卡'
+            },
+            {
+                key: 'humanReport',
+                label: '个人征信'
             }
         ]
     },
     {
-        key: '3',
-        icon: <UploadOutlined />,
-        label: '上传下载',
+        key: 'financeProductManage',
+        icon: <AccountBookOutlined />,
+        label: '理财产品管理',
+        children: [
+            {
+                key: 'change',
+                label: '零钱理财'
+            },
+            {
+                key: 'wage',
+                label: '工资理财'
+            },
+            {
+                key: 'time',
+                label: '期限理财'
+            },
+            {
+                key: 'fund',
+                label: '基金理财'
+            },
+            {
+                key: 'bank',
+                label: '精选银行'
+            }
+        ]
+    },
+    {
+        key: 'authorityMange',
+        icon: <KeyOutlined />,
+        label: '权限管理',
+        children: [
+            {
+                key: 'userRights',
+                label: '用户权限'
+            },
+            {
+                key: 'adminRights',
+                label: '管理员权限'
+            }
+        ]
+    },
+    {
+        key: 'onlineLoanMange',
+        icon: <AlipayOutlined />,
+        label: '网贷管理',
+        children: [
+            {
+                key: 'onlineLoanCheck',
+                label: '网贷审核'
+            },
+            {
+                key: 'onlineLoanInfo',
+                label: '网贷信息'
+            }
+        ]
     }
 ]
 export default function MainLayout(){
@@ -140,7 +151,7 @@ export default function MainLayout(){
         <Layout className={'mainLayout'}>
             <Sider trigger={null} collapsible collapsed={collapsed}>
                 <div className="demo-logo-vertical" />
-                <div className={'logo'}>{collapsed ? 'pro' : 'pro理财应用'}</div>
+                <div className={'logo'}>{collapsed ? '理财' : '理财应用管理'}</div>
                 <Menu
                     theme="dark"
                     mode="inline"
