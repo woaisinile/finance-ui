@@ -3,15 +3,11 @@ import React,{useState} from "react";
 import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
-    UploadOutlined,
-    UserOutlined,
-    VideoCameraOutlined,
-    MailOutlined,
-    SettingOutlined, WindowsFilled, WindowsOutlined, AccountBookOutlined, KeyOutlined, AlipayOutlined
+    UserOutlined, WindowsOutlined, AccountBookOutlined, KeyOutlined, AlipayOutlined
 } from '@ant-design/icons';
 import { Layout, Menu, Button, theme } from 'antd';
 import './MainLayout.css'
-import {Link, Outlet, useLocation, useNavigate} from 'react-router-dom'
+import {Outlet, useLocation, useNavigate} from 'react-router-dom'
 
 const {
     Header,
@@ -132,11 +128,11 @@ export default function MainLayout(){
     const user = location?.state?.result;
 
     const clickMenu = (e) => {
+        console.log(user)
         setCurrent(e.key)
         switch (e.key){
-            case 'marketActivity':
-                console.log('user', user)
-                navigate('/main-layout/market-activity')
+            case 'userInfo':
+                navigate('/mainLayout/userInfo')
                 break
             case 'exit':
                 sessionStorage.clear();
