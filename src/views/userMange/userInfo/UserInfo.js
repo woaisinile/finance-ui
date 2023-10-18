@@ -43,8 +43,8 @@ const UserInfo = () => {
         setIsModalVisible(false);
     };
 
-    const handleConfirmUpdate = async () => {
-        console.log(selectRecord)
+    const handleConfirmUpdate = async (record) => {
+        console.log(record)
         const result = await $updateUserById(selectRecord)
         setUpdateModalVisible(false);
     }
@@ -112,7 +112,7 @@ const UserInfo = () => {
                 <UpdateModal
                     isVisible={updateModalVisible}
                     onCancel={handleCancelUpdate}
-                    onConfirm={handleConfirmUpdate}
+                    selectRecord={selectRecord}
                 />
 
                 <DeleteConfirmationModal
