@@ -1,12 +1,16 @@
 import React, {useEffect, useState} from 'react'
 import {Button, ConfigProvider, Form, Pagination, Space, Table} from "antd";
 import locale from 'antd/es/locale/zh_CN';
-import {$deleteUserById, $qryAllUsers} from "../../../api/userApi";
+import {$deleteUserById, $qryAllUsers, $updateUserById} from "../../../api/userApi";
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
+import UpdateModal from "./UpdateModal";
 const UserInfo = () => {
     // 查询出来的用户信息
     const [users, setUsers] = useState([]);
+    // 删除弹窗
     const [isModalVisible, setIsModalVisible] = useState(false);
+    // 编辑弹窗
+    const [updateModalVisible, setUpdateModalVisible] = useState(false);
     const [selectRecord, setSelectRecord] = useState({});
 
     useEffect( () => {
@@ -27,17 +31,31 @@ const UserInfo = () => {
         setIsModalVisible(true);
     };
 
+    const handleUpdate = (record) => {
+        setSelectRecord(record)
+        setUpdateModalVisible(true);
+    }
+
     const handleConfirmDelete = async () => {
         // 在这里执行删除操作
         const result = await $deleteUserById(selectRecord)
-        console.log(result)
         // 删除完成后关闭确认弹窗
         setIsModalVisible(false);
     };
 
+    const handleConfirmUpdate = async () => {
+        console.log(selectRecord)
+        const result = await $updateUserById(selectRecord)
+        setUpdateModalVisible(false);
+    }
+
     const handleCancelDelete = () => {
         setIsModalVisible(false);
     };
+
+    const handleCancelUpdate = () => {
+        setUpdateModalVisible(false);
+    }
 
     const columns = [
         {
@@ -72,15 +90,9 @@ const UserInfo = () => {
             render: (_, record) =>(
                 <>
                     <Space size="small">
-                        <Button type="primary" >编辑</Button>
+                        <Button type="primary" onClick={() => {handleUpdate(record)}}>编辑</Button>
                         <Button danger onClick={() => {handleDelete(record)}}>删除</Button>
                     </Space>
-
-                    <DeleteConfirmationModal
-                        isVisible={isModalVisible}
-                        onConfirm={handleConfirmDelete}
-                        onCancel={handleCancelDelete}
-                    />
                 </>
             )
         }
@@ -97,8 +109,18 @@ const UserInfo = () => {
                     />
                     <Pagination />
                 </div>
-            </div>
+                <UpdateModal
+                    isVisible={updateModalVisible}
+                    onCancel={handleCancelUpdate}
+                    onConfirm={handleConfirmUpdate}
+                />
 
+                <DeleteConfirmationModal
+                    isVisible={isModalVisible}
+                    onConfirm={handleConfirmDelete}
+                    onCancel={handleCancelDelete}
+                />
+            </div>
         </ConfigProvider>
     )
 }

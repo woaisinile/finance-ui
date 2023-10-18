@@ -9,3 +9,9 @@ export const $deleteUserById = async (params) => {
     let {data} = await axios.post('deleteUserById', {params})
     return data;
 }
+
+export const $updateUserById = async (params) => {
+    let {data} = await axios.post('updateUserById', {params})
+    return data;
+}
+
