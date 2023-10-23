@@ -113,6 +113,7 @@ const UserInfo = () => {
                     isVisible={updateModalVisible}
                     onCancel={handleCancelUpdate}
                     selectRecord={selectRecord}
+                    userHandle={userHandle}
                 />
 
                 <DeleteConfirmationModal
